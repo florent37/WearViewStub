@@ -25,6 +25,11 @@ compile 'com.github.florent37:wearviewstub:1.0.0@aar'
 Usage
 --------
 
+Dependencies
+--------
+
+Based on ShapeWear (by tajchert) - [https://github.com/tajchert/ShapeWear][shape_wear].
+
 Community
 --------
 
@@ -75,3 +80,4 @@ License
 [snap]: https://oss.sonatype.org/content/repositories/snapshots/
 [android_doc]: https://developer.android.com/training/wearables/data-layer/assets.html
 [tuto_wear]: http://tutos-android-france.com/developper-une-application-pour-les-montres-android-wear/
+[shape_wear]: https://github.com/tajchert/ShapeWear
