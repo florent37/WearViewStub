@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WearViewStub">
+        <attr name="wearRectLayout" format="reference"/>
+        <attr name="wearRoundLayout" format="reference"/>
+        <attr name="wearRoundMotoLayout" format="reference"/>
+    </declare-styleable>
+</resources>
