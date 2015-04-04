@@ -28,41 +28,55 @@ import android.content.Context;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ShapeWear {
     public static enum ScreenShape {ROUND, MOTO_ROUND, RECTANGLE, UNDETECTED}
 
     private static int screenWidthPX = 0;
+    private static boolean setOnApplyWindowInsetsListenerCalled = false;
     private static int screenHeightPX = 0;
     private static OnSizeChangeListener onSizeChangeListener;
 
     private static ScreenShape shape = ScreenShape.UNDETECTED;
-    private static OnShapeChangeListener onShapeChangeListener;
+    private static ConcurrentLinkedQueue<OnShapeChangeListener> onShapeChangeListeners = new ConcurrentLinkedQueue<>();
 
     /**
      * Initialized to determine screen shape
      * @param view
      */
     private static void initShapeDetection(View view){
-        view.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                if (insets.isRound()) {
-                    shape = ScreenShape.ROUND;
-                    if(screenWidthPX == 320 && screenHeightPX == 290) {
-                        shape = ScreenShape.MOTO_ROUND;
+        if(!setOnApplyWindowInsetsListenerCalled) {
+            setOnApplyWindowInsetsListenerCalled = true;
+            view.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @Override
+                    public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                    if (insets.isRound()) {
+                        shape = ScreenShape.ROUND;
+                        if (screenWidthPX == 320 && screenHeightPX == 290) {
+                            shape = ScreenShape.MOTO_ROUND;
+                        }
+                    } else {
+                        shape = ScreenShape.RECTANGLE;
                     }
-                } else {
-                    shape = ScreenShape.RECTANGLE;
+                    if (onShapeChangeListeners != null && !onShapeChangeListeners.isEmpty()) {
+                        synchronized (onShapeChangeListeners) {
+                            for (OnShapeChangeListener listener : onShapeChangeListeners)
+                                listener.shapeDetected(getShape());
+                        }
+                    }
+                    return insets;
                 }
-                if(onShapeChangeListener != null){
-                    onShapeChangeListener.shapeDetected(getShape());
-                }
-                return insets;
-            }
-        });
+            });
+            view.requestApplyInsets();
+        }
     }
 
     /**
@@ -72,7 +86,8 @@ public class ShapeWear {
     public static void initShapeWear(Activity activity){
         WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
         getScreenSize(wm);
-        initShapeDetection(activity.getWindow().getDecorView().findViewById(android.R.id.content));
+        ViewGroup viewGroup = (ViewGroup) (activity).getWindow().getDecorView().findViewById(android.R.id.content);
+        initShapeDetection(viewGroup.getChildAt(0));
     }
 
     /**
@@ -80,9 +95,7 @@ public class ShapeWear {
      * @param context
      */
     public static void initShapeWear(Context context){
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        getScreenSize(wm);
-        initShapeDetection(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content));
+        initShapeWear((Activity)context);
     }
 
     private static void getScreenSize(WindowManager wm) {
@@ -129,14 +142,19 @@ public class ShapeWear {
         return screenHeightPX;
     }
 
-    public static OnShapeChangeListener getOnShapeChangeListener() {
-        return onShapeChangeListener;
+    public static void addOnShapeChangeListener(OnShapeChangeListener onShapeChangeListener) {
+        ShapeWear.onShapeChangeListeners.add(onShapeChangeListener);
+        if(!getShape().equals(ScreenShape.UNDETECTED) && ShapeWear.onShapeChangeListeners != null && !ShapeWear.onShapeChangeListeners.isEmpty()){
+            synchronized (onShapeChangeListeners) {
+                for (OnShapeChangeListener listener : onShapeChangeListeners)
+                    listener.shapeDetected(getShape());
+            }
+        }
     }
 
-    public static void setOnShapeChangeListener(OnShapeChangeListener onShapeChangeListener) {
-        ShapeWear.onShapeChangeListener = onShapeChangeListener;
-        if(!getShape().equals(ScreenShape.UNDETECTED) && ShapeWear.onShapeChangeListener != null){
-            ShapeWear.onShapeChangeListener.shapeDetected(getShape());
+    public static void removeOnShapeChangeListener(OnShapeChangeListener onShapeChangeListener) {
+        synchronized (onShapeChangeListeners) {
+            ShapeWear.onShapeChangeListeners.remove(onShapeChangeListener);
         }
     }
 

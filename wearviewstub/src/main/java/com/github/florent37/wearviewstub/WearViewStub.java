@@ -15,13 +15,14 @@ import pl.tajchert.shapewear.ShapeWear;
 /**
  * Created by florentchampigny on 02/04/15.
  */
-public class WearViewStub extends FrameLayout implements ShapeWear.OnShapeChangeListener {
+public class WearViewStub extends FrameLayout {
 
     private int layoutRectId;
     private int layoutRoundId;
     private int layoutRoundMotoId;
 
     private View viewToInflate;
+    private boolean addOnShapeChangeListenerCalled;
 
     private static ShapeWear shapeWear = null;
     private OnLayoutInflatedListener mOnLayoutInflatedListener;
@@ -29,11 +30,6 @@ public class WearViewStub extends FrameLayout implements ShapeWear.OnShapeChange
     //region construct
 
     private void handleAttributes(Context context, AttributeSet attrs) {
-        if (!isInEditMode()) {
-            if (shapeWear == null)
-                ShapeWear.initShapeWear(context);
-        }
-
         try {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.WearViewStub);
             {
@@ -75,16 +71,45 @@ public class WearViewStub extends FrameLayout implements ShapeWear.OnShapeChange
 
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
+    protected void onFinishInflate() {
+        super.onFinishInflate();
 
-        if (changed) {
-            if (isInEditMode()) {
-                inflateView(this.layoutRectId);
-                return;
-            }
+        if (isInEditMode()) {
+            inflateView(this.layoutRectId);
+            return;
+        }
 
-            ShapeWear.setOnShapeChangeListener(this);
+        if (shapeWear == null)
+            ShapeWear.initShapeWear(getContext());
+
+        if(!addOnShapeChangeListenerCalled) {
+            addOnShapeChangeListenerCalled = true;
+            ShapeWear.addOnShapeChangeListener(new ShapeWear.OnShapeChangeListener() {
+                @Override
+                public void shapeDetected(ShapeWear.ScreenShape screenShape) {
+                    int layoutId = -1;
+                    switch (screenShape) {
+                        case RECTANGLE:
+                            layoutId = layoutRectId;
+                            break;
+                        case ROUND:
+                            layoutId = layoutRoundId;
+                            break;
+                        case MOTO_ROUND:
+                            layoutId = layoutRoundMotoId;
+                            break;
+                    }
+
+                    if (layoutId != -1) {
+                        inflateView(layoutId);
+                        if (mOnLayoutInflatedListener != null) {
+                            mOnLayoutInflatedListener.onLayoutInflated(WearViewStub.this);
+                        }
+                    }
+
+                    ShapeWear.removeOnShapeChangeListener(this);
+                }
+            });
         }
     }
 
@@ -97,31 +122,6 @@ public class WearViewStub extends FrameLayout implements ShapeWear.OnShapeChange
             viewToInflate.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             addView(viewToInflate);
         }
-    }
-
-    @Override
-    public void shapeDetected(ShapeWear.ScreenShape screenShape) {
-        int layoutId = -1;
-        switch (screenShape) {
-            case RECTANGLE:
-                layoutId = layoutRectId;
-                break;
-            case ROUND:
-                layoutId = layoutRoundId;
-                break;
-            case MOTO_ROUND:
-                layoutId = layoutRoundMotoId;
-                break;
-        }
-
-        if (layoutId != -1) {
-            inflateView(layoutId);
-            if (mOnLayoutInflatedListener != null) {
-                mOnLayoutInflatedListener.onLayoutInflated(WearViewStub.this);
-            }
-        }
-
-        ShapeWear.setOnShapeChangeListener(null);
     }
 
     //region getters/setters

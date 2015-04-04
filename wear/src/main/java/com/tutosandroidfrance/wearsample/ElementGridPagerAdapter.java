@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.florent37.wearviewstub.WearViewStub;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +42,35 @@ public class ElementGridPagerAdapter extends FragmentGridPagerAdapter {
         for (Element element : elements) {
             mRows.add(new Row(
                             //pour l'instant nous ne mettrons qu'un élément par ligne
+                            createElementFragment(),
                             CardFragment.create(element.getTitre(), element.getTexte()),
                             createActionFragment(),
                             createActionFragment()
                     )
             );
         }
+    }
+
+    private Fragment createElementFragment() {
+        return new Fragment(){
+
+            @Nullable
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                return inflater.inflate(R.layout.fragment,container,false);
+            }
+
+            @Override
+            public void onViewCreated(View view, Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+                ((WearViewStub)view.findViewById(R.id.wearViewStub)).setOnLayoutInflatedListener(new WearViewStub.OnLayoutInflatedListener() {
+                    @Override
+                    public void onLayoutInflated(WearViewStub wearViewStub) {
+                        //do operations on inflated view
+                    }
+                });
+            }
+        };
     }
 
     private Fragment createActionFragment() {

@@ -3,7 +3,8 @@ WearStubView
 
 [![Build Status](https://travis-ci.org/florent37/WearStubView.svg)](https://travis-ci.org/florent37/WearStubView)
 
-WearMenu is an Android Wear Menu implementation
+WearViewStub is an alternative implementation of Android Wear [WatchViewStub][watch_view_stub].
+Instead of WatchViewStub, this implementation allways works, even in Fragments of GridViewPager
 
 Download
 --------
@@ -81,3 +82,4 @@ License
 [android_doc]: https://developer.android.com/training/wearables/data-layer/assets.html
 [tuto_wear]: http://tutos-android-france.com/developper-une-application-pour-les-montres-android-wear/
 [shape_wear]: https://github.com/tajchert/ShapeWear
+[watch_view_stub]: https://developer.android.com/samples/WatchViewStub/index.html

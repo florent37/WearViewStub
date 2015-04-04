@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.github.florent37.wearviewstub.WearViewStub
+        android:id="@+id/wearViewStub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:wearRectLayout="@layout/fragment_square"
+        app:wearRoundLayout="@layout/fragment_round"
+        app:wearRoundMotoLayout="@layout/fragment_round"
+        />
+
+</LinearLayout>
