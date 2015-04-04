@@ -1,7 +1,7 @@
 WearStubView
 =======
 
-[![Build Status](https://travis-ci.org/florent37/WearStubView.svg)](https://travis-ci.org/florent37/WearStubView)
+[![Build Status](https://travis-ci.org/florent37/WearViewStub.svg?branch=master)](https://travis-ci.org/florent37/WearViewStub)
 
 WearViewStub is an alternative implementation of Android Wear [WatchViewStub][watch_view_stub].
 Instead of WatchViewStub, this implementation allways works, even in Fragments of GridViewPager
