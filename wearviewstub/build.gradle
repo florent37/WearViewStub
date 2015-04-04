@@ -48,7 +48,8 @@ install {
 
                 // Add your description here
                 name 'WearViewStub'
-                description = ''
+                description = 'WearViewStub is an alternative implementation of Android Wear WatchViewStub.\n' +
+                        'Instead of WatchViewStub, this implementation allways works, even in Fragments of GridViewPager'
                 url siteUrl
 
                 // Set your license

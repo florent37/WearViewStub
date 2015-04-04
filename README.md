@@ -1,4 +1,4 @@
-WearStubView
+WearViewStub
 =======
 
 [![Build Status](https://travis-ci.org/florent37/WearViewStub.svg?branch=master)](https://travis-ci.org/florent37/WearViewStub)
@@ -18,7 +18,7 @@ repositories {
 }
 ```
 
-In your wear module [![Download](https://api.bintray.com/packages/florent37/maven/WearStubView/images/download.svg)](https://bintray.com/florent37/maven/WearStubView/_latestVersion)
+In your wear module [ ![Download](https://api.bintray.com/packages/florent37/maven/WearViewStub/images/download.svg) ](https://bintray.com/florent37/maven/WearViewStub/_latestVersion)
 ```groovy
 compile 'com.github.florent37:wearviewstub:1.0.0@aar'
 ```
