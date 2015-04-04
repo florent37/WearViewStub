@@ -26,6 +26,30 @@ compile 'com.github.florent37:wearviewstub:1.0.0@aar'
 Usage
 --------
 
+In your layout, use WearViewStub with wearRectLayout, wearRoundLayout and wearRoundMotoLayout attributes
+
+```xml
+<com.github.florent37.wearviewstub.WearViewStub
+        android:id="@+id/wearViewStub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:wearRectLayout="@layout/fragment_square"
+        app:wearRoundLayout="@layout/fragment_round"
+        app:wearRoundMotoLayout="@layout/fragment_round"
+        />
+```
+
+And in your code, wait until WearViewStub is inflated to access child views
+
+```java
+((WearViewStub)view.findViewById(R.id.wearViewStub)).setOnLayoutInflatedListener(new WearViewStub.OnLayoutInflatedListener() {
+                    @Override
+                    public void onLayoutInflated(WearViewStub wearViewStub) {
+                        //do operations on inflated view
+                    }
+                });
+```
+
 Dependencies
 --------
 
