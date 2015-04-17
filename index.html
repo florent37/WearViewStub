@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Wearviewstub by florent37</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Wearviewstub</h1>
+      <h2 class="project-tagline">Display different layout on Android Wear Square / Round / Moto 360</h2>
+      <a href="https://github.com/florent37/WearViewStub" class="btn">View on GitHub</a>
+      <a href="https://github.com/florent37/WearViewStub/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/florent37/WearViewStub/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="wearviewstub" class="anchor" href="#wearviewstub" aria-hidden="true"><span class="octicon octicon-link"></span></a>WearViewStub</h1>
+
+<p><a href="https://travis-ci.org/florent37/WearViewStub"><img src="https://travis-ci.org/florent37/WearViewStub.svg?branch=master" alt="Build Status"></a></p>
+
+<p><img src="https://raw.githubusercontent.com/florent37/WearViewStub/master/wear/src/main/res/drawable/background_small.jpg" alt="alt poster"></p>
+
+<p>WearViewStub allow your Android Wear application to use different layouts if running on square, round or moto360 device.</p>
+
+<p>WearViewStub is an alternative implementation of Android Wear <a href="https://developer.android.com/samples/WatchViewStub/index.html">WatchViewStub</a>.
+Instead of Google WatchViewStub, this implementation allways works, even in Fragments of GridViewPager.</p>
+
+<h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
+
+<p>In your root build.gradle add</p>
+
+<div class="highlight highlight-groovy"><pre>repositories {
+    maven {
+        url  <span class="pl-s"><span class="pl-pds">"</span>http://dl.bintray.com/florent37/maven<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<p>In your wear module <a href="https://bintray.com/florent37/maven/WearViewStub/_latestVersion"> <img src="https://api.bintray.com/packages/florent37/maven/WearViewStub/images/download.svg" alt="Download"> </a></p>
+
+<div class="highlight highlight-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>com.github.florent37:wearviewstub:1.0.0@aar<span class="pl-pds">'</span></span></pre></div>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>In your layout, use WearViewStub with wearRectLayout, wearRoundLayout and wearRoundMotoLayout attributes</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">com</span>.github.florent37.wearviewstub.WearViewStub
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>@+id/wearViewStub<span class="pl-pds">"</span></span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+        <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">wearRectLayout</span>=<span class="pl-s"><span class="pl-pds">"</span>@layout/fragment_square<span class="pl-pds">"</span></span>
+        <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">wearRoundLayout</span>=<span class="pl-s"><span class="pl-pds">"</span>@layout/fragment_round<span class="pl-pds">"</span></span>
+        <span class="pl-e">app</span><span class="pl-e">:</span><span class="pl-e">wearRoundMotoLayout</span>=<span class="pl-s"><span class="pl-pds">"</span>@layout/fragment_round<span class="pl-pds">"</span></span>
+        /&gt;</pre></div>
+
+<p>And in your code, wait until WearViewStub is inflated to access child views</p>
+
+<div class="highlight highlight-java"><pre>((<span class="pl-smi">WearViewStub</span>)view<span class="pl-k">.</span>findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>wearViewStub))<span class="pl-k">.</span>setOnLayoutInflatedListener(<span class="pl-k">new</span> <span class="pl-smi">WearViewStub</span>.<span class="pl-smi">OnLayoutInflatedListener</span>() {
+                    <span class="pl-k">@Override</span>
+                    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onLayoutInflated</span>(<span class="pl-smi">WearViewStub</span> <span class="pl-v">wearViewStub</span>) {
+                        <span class="pl-c">//do operations on inflated view</span>
+                    }
+                });</pre></div>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>Based on ShapeWear (by tajchert) - <a href="https://github.com/tajchert/ShapeWear">https://github.com/tajchert/ShapeWear</a>.</p>
+
+<h2>
+<a id="community" class="anchor" href="#community" aria-hidden="true"><span class="octicon octicon-link"></span></a>Community</h2>
+
+<p>Looking for contributors, feel free to fork !</p>
+
+<h2>
+<a id="wear" class="anchor" href="#wear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wear</h2>
+
+<p>If you want to learn wear development : <a href="http://tutos-android-france.com/developper-une-application-pour-les-montres-android-wear/">http://tutos-android-france.com/developper-une-application-pour-les-montres-android-wear/</a>.</p>
+
+<h2>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h2>
+
+<p>Author: Florent Champigny</p>
+
+<p><a href="https://plus.google.com/+florentchampigny">
+  <img alt="Follow me on Google+" src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/gplus.png">
+</a>
+<a href="https://twitter.com/florent_champ">
+  <img alt="Follow me on Twitter" src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/twitter.png">
+</a>
+<a href="https://www.linkedin.com/profile/view?id=297860624">
+  <img alt="Follow me on LinkedIn" src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/linkedin.png">
+</a></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<pre><code>Copyright 2015 florent37, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/florent37/WearViewStub">Wearviewstub</a> is maintained by <a href="https://github.com/florent37">florent37</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
