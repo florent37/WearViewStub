@@ -5,7 +5,7 @@ WearViewStub
 
 ![alt poster](https://raw.githubusercontent.com/florent37/WearViewStub/master/wear/src/main/res/drawable/background_small.jpg)
 
-WearViewStub allow your Android Wear application to use different layouts if running of square or round device.
+WearViewStub allow your Android Wear application to use different layouts if running on square, round or moto360 device.
 
 WearViewStub is an alternative implementation of Android Wear [WatchViewStub][watch_view_stub].
 Instead of Google WatchViewStub, this implementation allways works, even in Fragments of GridViewPager.
