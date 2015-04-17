@@ -3,8 +3,10 @@ WearViewStub
 
 [![Build Status](https://travis-ci.org/florent37/WearViewStub.svg?branch=master)](https://travis-ci.org/florent37/WearViewStub)
 
+WearViewStub allow your Android Wear application to use different layouts if running of square or round device.
+
 WearViewStub is an alternative implementation of Android Wear [WatchViewStub][watch_view_stub].
-Instead of WatchViewStub, this implementation allways works, even in Fragments of GridViewPager
+Instead of Google WatchViewStub, this implementation allways works, even in Fragments of GridViewPager.
 
 Download
 --------
