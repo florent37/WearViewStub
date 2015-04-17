@@ -3,7 +3,7 @@ WearViewStub
 
 [![Build Status](https://travis-ci.org/florent37/WearViewStub.svg?branch=master)](https://travis-ci.org/florent37/WearViewStub)
 
-![alt poster](https://raw.githubusercontent.com/florent37/WearViewStub/master/wear/src/main/res/drawable/background_small.png)
+![alt poster](https://raw.githubusercontent.com/florent37/WearViewStub/master/wear/src/main/res/drawable/background_small.jpg)
 
 WearViewStub allow your Android Wear application to use different layouts if running of square or round device.
 
