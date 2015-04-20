@@ -2,6 +2,7 @@ WearViewStub
 =======
 
 [![Build Status](https://travis-ci.org/florent37/WearViewStub.svg?branch=master)](https://travis-ci.org/florent37/WearViewStub)
+[![Android Weekly](https://img.shields.io/badge/android--weekly-148-blue.svg)](http://androidweekly.net/issues/issue-148)
 
 ![alt poster](https://raw.githubusercontent.com/florent37/WearViewStub/master/wear/src/main/res/drawable/background_small.jpg)
 
