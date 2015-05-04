@@ -3,7 +3,7 @@ WearViewStub
 
 [![Build Status](https://travis-ci.org/florent37/WearViewStub.svg?branch=master)](https://travis-ci.org/florent37/WearViewStub)
 [![Android Weekly](https://img.shields.io/badge/android--weekly-149-blue.svg)](http://androidweekly.net/issues/issue-149)
-![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-WearViewStub-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1746)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-WearViewStub-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1746)
 
 ![alt poster](https://raw.githubusercontent.com/florent37/WearViewStub/master/wear/src/main/res/drawable/background_small.jpg)
 
